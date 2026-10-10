@@ -24,4 +24,4 @@ Example request:
 - `STYLE-SHEET.md`: optional styles and a record of selected choices.
 - `README.md`: installation and scope.
 
-This is an instruction package, not a standalone video editor. It does not include rendering scripts, model weights, fonts, media, personal voice samples, credentials or private project logs. The assistant must use or implement tools available in the creator’s environment. No complete video render has been validated with this package.
+This is an instruction package, not a standalone video editor. It does not include rendering scripts, model weights, fonts, media, personal voice samples, credentials or private project logs. The assistant must use or implement tools available in the creator’s environment.
