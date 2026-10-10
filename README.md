@@ -1,27 +1,27 @@
 # SnowSkill Editing
 
-A shareable talking-head editing workflow for AI coding assistants. 中文口播 / 英文讲解均可；首次检查环境，所有选项由使用者选择。
+一个可分享的口播视频剪辑工作流，适用于 AI 编程助手。中文口播、英文讲解均可；首次使用先检查环境，所有选项由使用者自己选择。
 
-## What it does
+## 它做什么
 
-Assess available tools → ask about format, style, voice and transcription → plan the script and style preview → edit and animate using available tools → check and package the result.
+盘点可用工具 → 询问格式、风格、配音和转写方式 → 规划脚本和风格预览 → 用现有工具剪辑并做动画 → 检查并打包成片。
 
-**No defaults:** no preselected style, voice, transcription provider, platform or aspect ratio. Fish Audio and ElevenLabs are optional. Existing subtitles, local Whisper and authorized cloud transcription are alternative routes. Voice cloning is not required for transcription.
+**没有默认值：** 不预设风格、配音、转写服务商、平台或画幅。Fish Audio 和 ElevenLabs 都是可选的。现有字幕、本地 Whisper 和经授权的云端转写都是可行的替代路线。转写不需要声音克隆。
 
-Read [STYLE-SHEET.md](STYLE-SHEET.md) for optional visual directions, including Snow’s paper-and-doodle look. None is automatically applied.
+可选的视觉方向（包括 Snow 的纸张手绘风格）见 [STYLE-SHEET.md](STYLE-SHEET.md)，其中任何一项都不会被自动应用。
 
-## Install
+## 安装
 
-Copy this entire folder into your assistant’s supported skills directory, using the folder name `snowskill-editing`. For Claude Code, a user-level example is `~/.claude/skills/snowskill-editing/`; for Codex, `~/.codex/skills/snowskill-editing/`. Refresh the client and check that it discovers the skill. Other clients should follow their own installation instructions.
+把整个文件夹复制到你的助手支持的 skills 目录，文件夹名用 `snowskill-editing`。Claude Code 的用户级示例：`~/.claude/skills/snowskill-editing/`；Codex：`~/.codex/skills/snowskill-editing/`。刷新客户端，确认它能发现这个 skill。其他客户端请按各自的安装说明操作。
 
-Example request:
+示例请求：
 
-> Use snowskill-editing. Check my environment first, then ask me to choose the style, format, voice and transcription route. Explain any downloads, uploads or costs before proceeding.
+> 使用 snowskill-editing。先检查我的环境，再让我选择风格、格式、配音和转写方式。在下载、上传或产生费用之前先告诉我。
 
-## Included
+## 包含内容
 
-- `SKILL.md`: provider-neutral workflow and onboarding instructions.
-- `STYLE-SHEET.md`: optional styles and a record of selected choices.
-- `README.md`: installation and scope.
+- `SKILL.md`：与服务商无关的工作流和入门引导说明。
+- `STYLE-SHEET.md`：可选风格，以及已选择内容的记录。
+- `README.md`：安装与适用范围。
 
-This is an instruction package, not a standalone video editor. It does not include rendering scripts, model weights, fonts, media, personal voice samples, credentials or private project logs. The assistant must use or implement tools available in the creator’s environment.
+这是一个说明文档包，不是独立的视频编辑器。它不包含渲染脚本、模型权重、字体、媒体文件、个人声音样本、凭证或私人项目日志。助手需要使用或实现创作者环境中可用的工具。

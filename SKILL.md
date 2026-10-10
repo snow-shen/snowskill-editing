@@ -1,62 +1,62 @@
 ---
 name: snowskill-editing
-description: Create speech-led explainer videos with a real-person hook and animated visual beats. Onboard the creator, assess available tools, and choose recorded voice, ordinary TTS or optional voice cloning; support existing subtitles, cloud transcription or local Whisper without requiring one provider.
+description: 制作"真人开场 + 动画画面节拍"的口播讲解视频。先了解创作者、盘点可用工具，再选择原声录音、普通 TTS 或可选的声音克隆；支持现有字幕、云端转写或本地 Whisper，不强制绑定任何服务商。
 ---
 
-# Portable talking-head explainer
+# 可移植的口播讲解视频工作流
 
-This is a provider-neutral workflow skill, not a bundled video renderer. Do not assume scripts, templates, assets, other skills or accounts exist. Use the creator’s language. No particular model version is required; the original Opus name is not a dependency.
+这是一个与服务商无关的工作流 skill，不自带视频渲染器。不要假设脚本、模板、素材、其他 skill 或账号已经存在。使用创作者的语言交流。不要求特定模型版本，原作中提到的 Opus 名称不是依赖项。
 
-## No defaults
+## 不设默认值
 
-Do not assume a platform, aspect ratio, language, aesthetic, voice provider, transcription provider, background treatment or paid plan. Detection shows what is available, not what the user selected. Read STYLE-SHEET.md to present optional looks. Ask for a selection or a custom reference; no response means the choice remains unresolved. Continue only work independent of it.
+不要假设平台、画幅、语言、美术风格、配音服务商、转写服务商、背景处理方式或付费方案。环境检测只能说明"有什么可用"，不代表"用户选了什么"。读取 STYLE-SHEET.md 向用户展示可选风格，请用户选择或提供自定义参考；没有回复就视为未决定，只继续做与该选择无关的工作。
 
-## First use: assess, then ask
+## 首次使用：先盘点，再提问
 
-Start with read-only checks in the user-selected project. Check OS, available disk space and relevant commands (ffmpeg, ffprobe, node, python3, whisper-cli, whisper, hyperframes). Inspect installed packages or available tool descriptions when needed. Do not run npx to probe: it can download packages. Check whether named API environment variables are set as booleans only; never print values or read unrelated home-directory secrets. Command presence is not proof that a model, account, quota or GPU works.
+在用户指定的项目里先做只读检查：操作系统、可用磁盘空间，以及相关命令（ffmpeg、ffprobe、node、python3、whisper-cli、whisper、hyperframes）。必要时查看已安装的包或可用工具的说明。不要用 npx 探测，它可能会下载包。检查指定的 API 环境变量是否已设置时，只返回布尔值；绝不打印具体值，也不读取主目录里无关的密钥。命令存在并不代表模型、账号、额度或 GPU 真的可用。
 
-Report a small capability table: capability / detected / still needed. Then ask one compact onboarding question covering only unresolved choices:
-- Target language, platform and 16:9 or 9:16?
-- Voice: keep the recording, ordinary synthetic voice for a preview, or optional authorized clone?
-- Transcription: existing SRT/VTT, local Whisper for offline processing, or an available cloud service?
-- May media leave this computer, and what is the spending limit? Unknown means no upload and no paid call yet.
-- Visual preference: original background, cutout on paper, or another look?
+输出一张简短的能力表：能力 / 已检测到 / 还缺什么。然后只针对尚未确定的选项，提出一个简洁的入门问题：
+- 目标语言、发布平台，以及 16:9 还是 9:16？
+- 配音：保留原录音、用普通合成声做预览，还是使用经授权的声音克隆（可选）？
+- 转写：现有 SRT/VTT、离线的本地 Whisper，还是可用的云服务？
+- 媒体文件可以离开这台电脑吗？预算上限是多少？未知则视为不上传、不付费调用。
+- 视觉偏好：保留原背景、纸张抠像，还是其他风格？
 
-Present viable routes and their tradeoffs based on actual capability; wait for the user to choose voice, transcription, style and output format before dependent work. Do not preselect any route; do not require the creator to register for every provider. Save choices and capability evidence in project-local HANDOFF.md. Recheck affected capabilities when an error occurs or the user changes environments, not on every invocation. Missing optional services must not block planning, script writing or a storyboard.
+基于实际能力，列出可行的路线和取舍；在做依赖这些选择的工作之前，等待用户选定配音、转写、风格和输出格式。不要预选任何路线，也不要要求创作者注册每一家服务商。把选择和能力检测结果记录在项目本地的 HANDOFF.md 中。只有出现错误或用户更换环境时才重新检测相关能力，不要每次调用都重测。缺少可选服务不能阻塞策划、写稿或分镜。
 
-## Voice and transcription are separate
+## 配音与转写是两件事
 
-Transcription turns existing speech into text and timestamps. TTS creates speech from text. A voice clone is optional TTS and is never required for captions or editing.
+转写是把已有语音变成文字和时间戳；TTS 是把文字变成语音；声音克隆是可选的 TTS 方式，字幕和剪辑永远不需要它。
 
-Voice routes:
-1. Recorded voice: preserve source recordings; cut a clean take and align captions to the final audio. No cloning account required.
-2. Ordinary TTS: use an installed local engine, a user-configured service, or Edge TTS if available. Edge TTS requires network access and is not offline. Check the actual voice and language before generating the whole script.
-3. Clone: Fish Audio or ElevenLabs only when selected and configured by this creator. Ask for their own voice ID and authorized voice material; never reuse another creator’s ID. Keep keys in environment variables or a local ignored config, never in the skill. Check current provider documentation, model availability and price; do not assume a historical free model remains free. Generate a short sample first.
-4. No engine: write the script and recording directions; use supplied audio later. Do not silently replace the creator’s voice.
+配音路线：
+1. 原声录音：保留源录音，剪出干净的一版，字幕对齐最终音频。不需要克隆账号。
+2. 普通 TTS：使用已安装的本地引擎、用户配置好的服务，或可用的 Edge TTS（需要联网，不是离线方案）。生成整篇之前，先确认实际的声音和语言。
+3. 声音克隆：仅当创作者本人选择并配置了 Fish Audio 或 ElevenLabs 时才使用。请其提供自己的 voice ID 和已获授权的声音素材，绝不复用他人的 ID。密钥放在环境变量或本地忽略的配置里，绝不写进 skill。查阅服务商当前的文档、模型可用性和价格，不要假设以前免费的模型现在仍然免费。先生成一小段样本。
+4. 没有引擎：写好稿子和录音指导，之后再用提供的音频。不要悄悄替换创作者的声音。
 
-Transcription routes:
-1. Existing SRT/VTT: inspect whether it matches the final cut. Segment captions do not provide word-level timing.
-2. Local Whisper: use the installed implementation (whisper.cpp, faster-whisper or OpenAI Whisper). Check model files, language, CPU/GPU support and available resources. Explain model downloads and likely CPU load; obtain permission before installing or downloading. Test a short excerpt; choose model size based on the result. Syntax varies: inspect local help rather than inventing flags.
-3. Cloud: Groq, ElevenLabs or another configured service. Verify file limits, timestamps and actual access with an authorized short sample. Require upload permission. Do not describe a service as free without checking.
-4. Manual captions: acceptable for a short clip if no transcriber is available. Disclose that timing is manual.
+转写路线：
+1. 现有 SRT/VTT：检查是否与最终成片匹配。按段落的字幕不提供逐字时间。
+2. 本地 Whisper：使用已安装的实现（whisper.cpp、faster-whisper 或 OpenAI Whisper）。检查模型文件、语言、CPU/GPU 支持和可用资源。说明模型下载和大致的 CPU 负载；安装或下载前先征得同意。先测一小段，根据结果选择模型大小。各实现的语法不同：查看本地帮助，不要凭空编造参数。
+3. 云端：Groq、ElevenLabs 或其他已配置的服务。用一小段已授权的样本验证文件大小限制、时间戳和实际访问权限。上传前需获得许可。不检查就不要说某服务免费。
+4. 手动字幕：没有可用转写工具时，短片可以接受。需说明时间轴是手动对的。
 
-On expired credentials or quota failure, explain the specific unavailable capability, offer local transcription / supplied subtitles / another authorized provider. Never silently upload to a fallback service or incur charges. Do not infer permission from the presence of a key.
+凭证过期或额度用尽时，说明具体是哪项能力不可用，并提供备选：本地转写 / 用户提供字幕 / 另一家已授权的服务商。绝不悄悄上传到备用服务，也不产生费用。不要因为存在密钥就推断用户已许可。
 
-## Production workflow
+## 制作流程
 
-1. Identify the clip from its content and the chosen project; do not assume the newest download belongs to this task. Check for concurrent writes before editing.
-2. Collect real notes, screenshots and source footage from the user-selected project. Missing facts remain unknown. Do not scan personal history, unrelated accounts or Downloads without a task reason.
-3. Agree a concept, one understandable metaphor and a short outline. Humor, creator representation and pacing are preferences to ask about, not inherited personal rules. Do not invent experiences or results.
-4. Write narration as scene data: one sentence per caption and visual beat. Keep facts and sources separate. Choose platform-specific wording with the creator; do not promise that euphemisms prevent moderation.
-5. Show two or three actual style frames or a playable hook preview when the look is new. Include remaining work, estimated time and known costs. A script approval is not a style approval. Respect explicit permission to proceed without previews.
-6. Lock the chosen voice, then build sentence timings against the actual audio. Timestamps must be recomputed after a cut, speed change or pause removal. Word-level animation requires verified word timestamps or a disclosed manual alignment.
-7. Use the available renderer. If HyperFrames is installed and its skill is available, read its current instructions before writing compositions. Otherwise offer an available editor or storyboard-only output; do not pretend the renderer exists. Background removal, image generation and music are optional. Preserve the original background when removal is unavailable. Use user-supplied or licensed assets and record sources in CREDITS.md.
-8. Animate from sentence start/end times; every spoken sentence gets a meaningful visual response. Keep state seek-safe. Use a real screen demo for concrete tutorials, readable captions and platform safe areas. Avoid mandatory personal fonts or references to another creator’s projects.
-9. Preview before a full render. Check representative frames, transitions, cut continuity, caption accuracy, clipping, voice intelligibility and final audio loudness. Silence can cause Whisper hallucinations: compare suspicious repeats with the actual audio. Do not claim listening or visual review if not performed.
-10. Deliver final video, a preview and selected cover/copy formats in final/. Write HANDOFF.md with decisions, tool choices, sources, unresolved issues and next steps. Never mark content published without evidence. Publishing, sending to others and deletion require the user’s instruction. Preserve source media and archive previous renders rather than overwriting them.
+1. 根据内容和选定的项目确认是哪条视频，不要假设最新下载的就是当前任务。编辑前检查是否有并发写入。
+2. 从用户选定的项目中收集真实的笔记、截图和源素材。缺失的事实保持"未知"。没有任务理由，不要扫描个人历史、无关账号或 Downloads。
+3. 与创作者商定主题、一个好理解的比喻和简短大纲。幽默感、创作者形象和节奏属于需要询问的偏好，不是继承来的个人规则。不要编造经历或结果。
+4. 把旁白写成分镜数据：每句话对应一条字幕和一个画面节拍。事实与来源分开记录。与创作者一起选择适合平台的措辞，不要承诺委婉说法能避免审核。
+5. 当风格是新的时，展示两三张真实的风格帧或可播放的开场预览，同时说明剩余工作、预计耗时和已知费用。文案通过不等于风格通过。若用户明确表示可以不看预览直接做，则照办。
+6. 锁定选定的配音，再基于实际音频建立逐句时间。剪辑、变速或去除停顿之后，必须重新计算时间戳。逐字动画需要经过验证的逐字时间戳，或明确说明是手动对齐。
+7. 使用可用的渲染器。若已安装 HyperFrames 且其 skill 可用，先读取其最新说明再写合成。否则提供可用的剪辑软件方案或仅输出分镜，不要假装渲染器存在。抠像、图像生成和音乐都是可选的；无法抠像时保留原背景。使用用户提供或有授权的素材，并在 CREDITS.md 中记录来源。
+8. 按每句话的起止时间做动画，每一句口播都要有有意义的画面回应。保持状态可随时跳转（seek-safe）。具体教程使用真实的屏幕演示，字幕要清晰可读并避开平台安全区。不要强制使用个人字体，也不要引用其他创作者的项目。
+9. 完整渲染前先预览。检查代表性画面、转场、剪辑连贯性、字幕准确性、有无被裁切、人声清晰度和最终响度。静音可能引发 Whisper 幻觉：把可疑的重复内容与实际音频对照。没有真正听过或看过，就不要声称做过听觉或视觉检查。
+10. 在 final/ 中交付成片、预览，以及选定的封面和文案格式。在 HANDOFF.md 中写明决定、工具选择、来源、遗留问题和下一步。没有证据，绝不标记内容已发布。发布、发送给他人和删除都必须由用户指示。保留源素材，旧版渲染归档而不是覆盖。
 
-## Config and safety
+## 配置与安全
 
-Use project-local paths, no absolute personal paths. Separate reusable workflow from a creator-specific profile. Record language, platform, aesthetic, voice route, transcription route, upload permission and spending ceiling; never store tokens. An optional provider adapter must produce the same contract: audio file plus sentence timings, or transcript plus timestamps with their granularity. Validate that contract before passing it to the next stage.
+使用项目本地路径，不使用个人绝对路径。把可复用的工作流与创作者个人档案分开。记录语言、平台、美术风格、配音路线、转写路线、上传许可和预算上限；绝不保存令牌。任何可选的服务商适配器都必须产出相同的数据契约：音频文件加逐句时间，或文字稿加带粒度说明的时间戳。传给下一阶段之前先验证该契约。
 
-Do not copy private project logs, voice samples, personal photos, account handles, API credentials or unverified-license assets into a distribution. This package intentionally includes no personal templates or assets. The agent writes or adapts project scripts to the tools actually available and states what is implemented versus proposed.
+不要把私人项目日志、声音样本、个人照片、账号名、API 凭证或授权不明的素材复制进分发包。本包有意不含任何个人模板或素材。Agent 需要针对实际可用的工具编写或改造项目脚本，并说明哪些已实现、哪些只是方案。

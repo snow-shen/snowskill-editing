@@ -1,26 +1,26 @@
-# Optional style sheet / 可选风格表
+# 可选风格表
 
-Nothing in this sheet is selected automatically. Ask the creator to choose, combine options or provide a reference. Colors and font categories below are examples, not global defaults. Show actual style frames before applying a new look to the whole video.
+本表中没有任何选项会被自动选中。请让创作者选择、组合，或提供参考。下面的颜色和字体类别只是示例，不是全局默认值。把新风格应用到整支视频之前，先展示真实的风格帧。
 
-| Option | Background and palette | Typography and motion | Good fit |
+| 选项 | 背景与配色 | 字体与动效 | 适合场景 |
 | --- | --- | --- | --- |
-| Paper & doodles / 纸张手绘 | Cream #FAF7F0, ink #1A1A1A, optional red #E63946 and yellow #FFD60A | Licensed handwriting font, marker highlights, stamps, small doodles; optional person cutout | Friendly explainers, personal stories |
-| Clean editorial / 简洁编辑 | User-selected light or dark neutral background, one accent | Readable sans-serif, restrained fades and slides, strong hierarchy | Tutorials, clear explanations |
-| Original camera / 真人原景 | Keep supplied camera footage and its colors | Captions and sparse overlays; no cutout required | Vlogs, direct conversation |
-| Bold kinetic / 动态大字 | User-selected contrasting palette | Large type, word emphasis, quick transitions; maintain readability | Short hooks, energetic commentary |
-| Screen-led / 屏幕演示 | Real screenshots or screen recordings | Cursor cues, zooms, step labels; optional face inset | Software walkthroughs |
-| Custom / 自定义 | Creator supplies references or describes a look | Agree typography, motion intensity and layout together | Any project |
+| 纸张手绘 | 奶油色 #FAF7F0、墨色 #1A1A1A，可选红 #E63946 和黄 #FFD60A | 有授权的手写字体、马克笔高亮、印章、小涂鸦；可选人物抠像 | 亲切的讲解、个人故事 |
+| 简洁编辑 | 用户选定的浅色或深色中性背景，加一个强调色 | 易读的无衬线字体，克制的淡入和滑动，层级分明 | 教程、清晰的讲解 |
+| 真人原景 | 保留提供的摄像机画面及其色彩 | 字幕加少量叠加元素，无需抠像 | Vlog、直接对话 |
+| 动态大字 | 用户选定的高对比配色 | 大字、逐词强调、快速转场，保持可读性 | 短视频开场、有活力的评论 |
+| 屏幕演示 | 真实截图或录屏 | 光标提示、缩放、步骤标签；可选人脸小窗 | 软件操作演示 |
+| 自定义 | 创作者提供参考或描述想要的样子 | 一起商定字体、动效强度和版式 | 任何项目 |
 
-## Questions to resolve
+## 需要确认的问题
 
-- Which style or combination? Which colors should be used or avoided?
-- Original background, cutout, face inset or no on-camera person?
-- Gentle, moderate or energetic motion? Any accessibility needs?
-- Caption language and size, typeface preference, target platform and aspect ratio?
+- 选哪种风格或组合？哪些颜色要用、哪些要避开？
+- 原背景、抠像、人脸小窗，还是不出镜？
+- 动效是轻柔、适中还是强烈？有无无障碍需求？
+- 字幕语言与字号、字体偏好、目标平台和画幅？
 
-## Selected style record
+## 已选风格记录
 
-Save only choices the creator has made in project-local STYLE.md:
+只把创作者已经做出的选择保存到项目本地的 STYLE.md：
 
 ```text
 Style: unresolved
@@ -34,4 +34,4 @@ Platform / aspect ratio: unresolved
 Style preview approval: unresolved
 ```
 
-Use supplied or properly licensed fonts and assets. No font, image or template is bundled here. This is a design reference sheet, not a CSS file or executable renderer.
+使用用户提供或有正当授权的字体和素材。这里不附带任何字体、图片或模板。这是一份设计参考表，不是 CSS 文件，也不是可执行的渲染器。
